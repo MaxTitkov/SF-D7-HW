@@ -1,0 +1,14 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block extra_title %}
+Авторы
+{% endblock %}
+
+{% block extra_content %}
+	<h2>Перечень всех авторов</h2>
+	<ul>
+		{% for author in object_list %}
+		    <li>{{ author.full_name }}</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

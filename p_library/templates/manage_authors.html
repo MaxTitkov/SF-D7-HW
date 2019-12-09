@@ -1,21 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'base_with_navbar.html' %}
 
-{% block title %}Manage Authors{% endblock %}
+{% block extra_title %}
+Создание авторов
+{% endblock %}
 
-{% block main_content %}
-
-    <form method="post">
-        {{ author_formset.management_form }}
-        {% csrf_token %}
-        {% for form in author_formset %}
-            {{form.as_ul}} <br>
-        {% endfor %}
-        <input type="submit" value="Save">
-
-    </form>
-
-
-
-
-
+{% block extra_content %} 
+{{ author_formset.management_form }}
+	<h2>Форма для создания авторов</h2>
+	{% csrf_token %}  
+	{% for form in author_formset %}  
+		{{ form.as_ul }}  
+		<br>  
+	{% endfor %}
+    <input type="submit" value="Сохранить"/>  
+</form>  
 {% endblock %}

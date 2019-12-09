@@ -1,23 +1,49 @@
 from django.contrib import admin
-from p_library.models import Book, Author, Redaction, Friend
+from p_library.models import Redaction, Book, Author
+
+# 
+from p_library.models import Friend, Rent, UserProfile
+# 
+
+
+@admin.register(UserProfile)  
+class ProfileAdmin(admin.ModelAdmin):  
+    pass
+
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ("title", "author_admin")
-    fields = (('ISBN', 'redaction'), 'year_release', 'author', 'title', 'description', 'price', 'copy_count', 'friend', 'image')
 
     @staticmethod
-    def author_admin(obj):
-        return "%s (%s)"%(obj.author.full_name, obj.author.country)
+    def author_full_name(obj):
+        return obj.author.full_name
+
+    list_display = ('title', 'author_full_name',)
+    fields = ('ISBN', 'title', 'description', 'year_release', 'author', 'price', 'copy_count', 'redaction', 'book_img')
+
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_filter = ("country",)
-    pass
+    pass    
+ 
+
 @admin.register(Redaction)
 class RedactionAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Friend)
-class FriendRegister(admin.ModelAdmin):
+class FriendAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(Rent)
+class RentAdmin(admin.ModelAdmin):
+    
+    @staticmethod
+    def friend_name(obj):
+        return obj.friend.name
+
+    @staticmethod
+    def book_title(obj):
+        return obj.book.title
+
+    list_display = ('friend_name', 'book_title', 'num',)

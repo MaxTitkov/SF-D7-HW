@@ -1,19 +1,23 @@
-{% extends 'base.html' %}
-{% block title %}Manage books and authors{% endblock %}
-{% block main_content %}
+{% extends 'base_with_navbar.html' %}
 
-    <form method="post">
-        {{author_formset.management_form}}
-        {{book_formset.management_form}}
-        {% csrf_token %}
-        {% for form in author_formset %}
-            {{form.as_ul}} <br>
-        {% endfor %}
+{% block extra_title %}
+Создание авторов и книг
+{% endblock %}
 
-        {% for form in book_formset %}
-            {{form.as_ul}}
-        {% endfor %}
-        <input type="submit" value="Save">
-    </form>
-
+{% block extra_content %}
+<h2>Форма для создания нескольких авторов и книг</h2>
+<form method="post"> 
+  {{ author_formset.management_form }} 
+  {% csrf_token %}  
+  {% for form in author_formset %}  
+        {{ form.as_ul }}  
+        <br>  
+  {% endfor %}  
+  {{ book_formset.management_form }}
+  {% for form in book_formset %}  
+        {{ form.as_ul }}  
+        <br>  
+  {% endfor %}  
+    <input type="submit" value="Сохранить"/>  
+</form>  
 {% endblock %}

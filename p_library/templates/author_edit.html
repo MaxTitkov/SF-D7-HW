@@ -1,0 +1,14 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block extra_title %}
+Создание автора
+{% endblock %}
+
+{% block extra_content %} 
+<form method="post">  
+	<h2>Форма для создания автора</h2>
+	{% csrf_token %}  
+	{{ form.as_p }}  
+	<input type="submit" value="Сохранить">  
+</form>  
+{% endblock %}

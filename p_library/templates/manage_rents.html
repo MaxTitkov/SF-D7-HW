@@ -1,0 +1,19 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block extra_title %}
+Одолжить несколько
+{% endblock %}
+
+{% block extra_content %}
+  
+<form method="post">  
+{{ rent_formset.management_form }}
+	<h2>Форма для создания записей об нескольких одолженых книгах</h2>
+	{% csrf_token %}  
+	{% for form in rent_formset %}  
+		{{ form.as_ul }}  
+		<br>  
+	{% endfor %}
+    <input type="submit" value="Сохранить"/>  
+</form>  
+{% endblock %}

@@ -1,44 +1,38 @@
-Добро пожаловать в {{ title }}.  <br>
-Тут собрано {{ books|length }} книг из моей личной коллекции. <br>
+{% extends 'base_with_navbar.html' %}
 
-<table border="1">
-        <thead>
+{% block extra_title %}
+Таблица книг
+{% endblock %}
+
+{% block extra_content %}
+    
+    <h1>Добро пожаловать в {{ title }}.</h1><br>
+    <p>Тут собрано {{ books|length }} книг из моей личной коллекции.</p>
+
+    <table border="1">
+        {% for book in books %}
             <tr>
-                <th>"Индекс"</th>
-                <th>"ISBN"</th>
-                <th>"Количество"</th>
-                <th>"Название"</th>
-                <th>"Дата публикации"</th>
-                <th>"Автор"</th>
-                <th>"Страна"</th>
-                <th>"Краткое описаниеЭ</th>
-                <th>"Цена"</th>
-            </tr>
-        </thead>
-    {% for book in books %}
-        
-        <tbody>
-            <tr>
-                <td>{{forloop.counter}}</td>
-                <td>{{book.ISBN}}</td>
-                <td>{{book.copy_count}}</td>
-                <td>{{book.title}}</td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.ISBN }}</td>
+                <td>{{ book.description }}</td>
                 <td>{{ book.year_release }}</td>
                 <td>{{ book.author.full_name }}</td>
                 <td>{{ book.author.country }}</td>
-                <td>{{book.description}}</td>
-                <td>{{book.price}} руб.</td>
+                <td>{{ book.copy_count }}</td>
+                <td>{{ book.can_be_borrowed }}</td>
                 <td>
                     <form action="/index/book_increment/" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="{{book.id}}">
-                        <input type="submit" value="Увеличить количество">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{book.id}}" />
+                        <input type="submit" value="Увеличить кол-во" />
                     </form>
                     <form action="/index/book_decrement/" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="id" value="{{book.id}}">
-                        <input type="submit" value="Уменьшить количество">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{book.id}}" />
+                        <input type="submit" value="Уменьшить кол-во" />
                     </form>
                 </td>
             </tr>
-        </tbody>
-    {% endfor %}
-</table>
+        {% endfor %}
+    </table>
+{% endblock %}

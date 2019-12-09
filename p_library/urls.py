@@ -1,13 +1,16 @@
-from django.urls import path
-from p_library import views
-
-app_name = "p_library"
-
-urlpatterns = [
-    path("authors", views.AuthorListView.as_view(), name="author_list"),
-    path("author/create", views.AuthorCreateView.as_view(), name="author_create"),
-    path("authors/create_many", views.author_create_many, name='author_create_many'),
-    path("authors/create_many_books", views.books_authors_create_many, name="book_author_create_many"),
-    path("books_list", views.BooksListView.as_view(), name="books_list"),
-    path("book_update<int:pk>", views.BookUpdateView.as_view(), name="book_update_view"),
+from allauth.account.views import login, logout
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import path, reverse_lazy
+from p_library.views import Oauth, RegisterView, CreateUserProfile 
+  
+app_name = 'p_library'  
+urlpatterns = [  
+    path('', Oauth.index, name='index'),  
+    path('login/', login, name='login'), 
+    path('logout/', logout, name='logout'),
+    path('register/', RegisterView.as_view(  
+        template_name='register.html',  
+		success_url=reverse_lazy('p_library:profile-create')  
+    ), name='register'),  
+    path('profile-create/', CreateUserProfile.as_view(), name='profile-create'),  
 ]

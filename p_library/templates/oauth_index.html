@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Главная страница 
+{% endblock %}
+
+{% block content %}
+	{% if username %}  
+	    <h1>Привет, {{ username }}!</h1>  
+	    <p>Посмотри на наши <a href="/index/">книги</a></p>
+		<p>А тут ты можешь <a href="/logout">выйти</a>.</p>  
+	{% else %}  
+	    <p>Тебе нужно <a href="/accounts/signup/">зарегистрироваться</a> или <a href="/login">войти на сайт</a>!</p>  
+	{% endif %}  
+{% endblock %}

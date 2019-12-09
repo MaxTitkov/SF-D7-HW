@@ -1,0 +1,14 @@
+{% extends 'base_with_navbar.html' %}
+
+{% block extra_title %}
+Список одолженого
+{% endblock %}
+
+{% block extra_content %}
+	<h2>Это список с указанием кто взял сколько книг</h2>
+	<ul class="list-group">
+		{% for rent in object_list %}
+		    <li class="list-group-item">{{ rent.friend.name }} -- взял -- {{ rent.book.title }} -- в количестве {{ rent.num }} шт.</li>
+		{% endfor %}
+	</ul>	
+{% endblock %}
